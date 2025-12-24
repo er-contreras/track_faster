@@ -50,10 +50,10 @@ class App
   def handle_tasks(request)
     return not_found unless request.post?
   
-    title = request.params["title"]
-    return bad_request if title.nil? || title.strip.empty?
+    title = request.params["title"]&.strip
+    return bad_request if title.nil? || title.empty?
   
-    @tasks.add({ title: title })
+    task = @tasks.add(title)
 
     [200, { "content-type" => "text/html" }, ["<li>#{Rack::Utils.escape_html(title)}</li>"]]
   end

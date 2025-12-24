@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const html = await response.text();
 
-    list.innerHTML = html;
+    list.insertAdjacentHTML("beforeend", html);
     form.reset();
   });
 });
