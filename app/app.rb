@@ -1,27 +1,27 @@
+require "rack"
+require_relative "task_store"
+
 class App
+  def initialize
+    @tasks = TaskStore.new
+  end
+
   def call(env)
     request = Rack::Request.new(env)
 
-    if request.path == "/"
-      return html_response(render_index)
+    case request.path
+    when "/"
+      html_response(render_index)
+    when "/tasks"
+      handle_tasks(request)
+    else
+      not_found
     end
-
-    not_found
   end
 
   private
 
   def render_index
-    steps = [
-      { title: "Define project scope", done: false },
-      { title: "Build execution loop", done: false },
-      { title: "Ship MVP", done: false }
-    ]
-
-    items = steps.map do |step|
-      "<li>#{step[:title]}</li>"
-    end.join
-
     <<~HTML
       <!doctype html>
       <html>
@@ -29,23 +29,50 @@ class App
           <meta charset="utf-8">
           <title>Task App</title>
           <link rel="stylesheet" href="/styles.css">
+          <script src="/app.js"></script>
         </head>
         <body>
           <h1>Execute projects step by step</h1>
+
+          <form method="POST" action="/tasks">
+            <input type="text" name="title" required>
+            <button>Add task</button>
+          </form>
+
           <ul>
-            #{items}
+            #{render_items}
           </ul>
         </body>
       </html>
     HTML
   end
 
+  def handle_tasks(request)
+    return not_found unless request.post?
+  
+    title = request.params["title"]
+    return bad_request if title.nil? || title.strip.empty?
+  
+    @tasks.add({ title: title })
+
+    [200, { "content-type" => "text/html" }, ["<li>#{Rack::Utils.escape_html(title)}</li>"]]
+  end
+
+  def render_items
+    @tasks.all.map do |title|
+      "<li>#{Rack::Utils.escape_html(title)}</li>"
+    end.join
+  end
+
   def html_response(body)
     [200, { "content-type" => "text/html" }, [body]]
+  end
+
+  def redirect_to(path)
+    [302, { "location" => path }, []]
   end
 
   def not_found
     [404, { "content-type" => "text/plain" }, ["Not Found"]]
   end
 end
-

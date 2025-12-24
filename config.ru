@@ -1,9 +1,8 @@
-require "rack/files"
+require "rack/static"
 require_relative "./app/app"
 
-map "/styles.css" do
-  run Rack::Files.new("public")
-end
+use Rack::Static,
+    urls: ["/favicon.ico", "/styles.css", "/app.js"],
+    root: "public"
 
 run App.new
-
