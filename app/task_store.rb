@@ -2,7 +2,7 @@ require "json"
 require "fileutils"
 
 class TaskStore
-  FILE_PATH = File.expand_path("../../data/tasks.json", __dir__)
+  FILE_PATH = File.expand_path("../data/tasks.json", __dir__)
 
   def all
     load_tasks

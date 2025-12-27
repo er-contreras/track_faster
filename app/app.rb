@@ -53,7 +53,7 @@ class App
     title = request.params["title"]&.strip
     return bad_request if title.nil? || title.empty?
   
-    task = @tasks.add(title)
+    @tasks.add(title)
 
     [200, { "content-type" => "text/html" }, ["<li>#{Rack::Utils.escape_html(title)}</li>"]]
   end
