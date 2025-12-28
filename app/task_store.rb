@@ -1,36 +1,29 @@
-require "json"
-require "fileutils"
+require "pg"
 
 class TaskStore
-  FILE_PATH = File.expand_path("../data/tasks.json", __dir__)
+  def initialize
+    @conn = PG.connect(ENV.fetch("DATABASE_URL"))
+    ensure_table!
+  end
 
   def all
-    load_tasks
+    @conn.exec("SELECT title FROM tasks ORDER BY id").map { |r| r["title"] }
   end
 
   def add(title)
-    tasks = load_tasks
-    tasks << title
-    persist!(tasks)
+    @conn.exec_params("INSERT INTO tasks (title) VALUES ($1)", [title])
   end
 
   private
 
-  def ensure_file!
-    FileUtils.mkdir_p(File.dirname(FILE_PATH))
-    File.write(FILE_PATH, "[]") unless File.exist?(FILE_PATH)
-  end
-
-  def load_tasks
-    ensure_file!
-
-    JSON.parse(File.read(FILE_PATH))
-  rescue JSON::ParserError
-    []
-  end
-
-  def persist!(tasks)
-    File.write(FILE_PATH, JSON.pretty_generate(tasks))
+  def ensure_table!
+    @conn.exec <<~SQL
+      CREATE TABLE IF NOT EXISTS tasks (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL
+      )
+    SQL
   end
 end
+
 
