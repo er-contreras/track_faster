@@ -6,11 +6,11 @@ RUN apt-get update -qq && \
 
 WORKDIR /track_faster
 
+# Install gems first (cached)
 COPY Gemfile Gemfile.lock ./
-RUN bundle install --without development test
+RUN bundle install
 
-COPY . .
-
+# App code will be bind-mounted
 EXPOSE 9292
 
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0"]

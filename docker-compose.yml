@@ -14,7 +14,7 @@ services:
     entrypoint: /entrypoint.sh
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - .:/track_faster
     ports:

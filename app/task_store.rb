@@ -1,6 +1,10 @@
 require "pg"
 
 class TaskStore
+  DATABASE_URL = ENV.fetch("DATABASE_URL") do
+    raise "DATABASE_URL is required but not set"
+  end
+
   def initialize
     @conn = PG.connect(ENV.fetch("DATABASE_URL"))
     ensure_table!
