@@ -14,5 +14,18 @@ sudo docker compose up -d
 
 ## 🚀 Features
 1. Add project step.
-2. Marke project step as done.
+2. Mark project step as done.
 3. Customize title and text.
+4. Delete task as you wish
+5. 
+
+## 🧱 Tech Stack
+1. Ruby
+2. JavaScript
+3. Shell Scripting
+4. Docker
+5. Rack
+6. Rackup
+7. Puma
+8. Pg
+9. render.com for deployment
