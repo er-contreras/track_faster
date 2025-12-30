@@ -32,7 +32,7 @@ class App
           <script src="/app.js"></script>
         </head>
         <body>
-          <h1>Step by Step App</h1>
+          <h1>STEP BY STEP APP</h1>
 
           <form method="POST" action="/tasks">
             <input type="text" name="title" required>
