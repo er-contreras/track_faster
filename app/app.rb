@@ -56,12 +56,32 @@ class App
   
     @tasks.add(title)
 
-    [200, { "content-type" => "text/html" }, ["<div class='li-wrapper'><li>#{Rack::Utils.escape_html(title)}</li></div>"]]
+    [
+      200,
+      { "content-type" => "text/html" },
+      [
+        "
+          <div class='li-wrapper'>
+            <li>#{Rack::Utils.escape_html(title)}</li>
+            <div class='buttons-wrapper'>
+              <button class='edit-button'></button>
+              <button class='delete-button'>Delete</button>
+            </div>
+          </div>
+        "
+      ]
+    ]
   end
 
   def render_items
     @tasks.all.map do |title|
-      "<div class='li-wrapper'><li>#{Rack::Utils.escape_html(title)}</li></div>"
+      "<div class='li-wrapper'>
+        <li>#{Rack::Utils.escape_html(title)}</li>
+          <div class='buttons-wrapper'>
+            <button class='edit-button'></button>
+            <button class='delete-button'>Delete</button>
+          </div>
+      </div>"
     end.join
   end
 
