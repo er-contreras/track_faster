@@ -14,32 +14,45 @@ body {
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 6rem;
   text-align: center;
   padding: 6rem 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 6rem;
+  padding: 11rem 0 5rem 0;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  padding: 10rem;
+  padding: 1rem;
 }
 
 form input {
   border: 1px solid blue;
-  font-size: 4rem;
+  font-size: 6rem;
 }
 
 form button {
-  font-size: 4rem;
+  font-size: 6rem;
 }
 
 ul {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 0 15rem;
-  list-style: decimal;
+  padding: 0 1rem;
+  list-style: decimal inside;
+}
+
+.li-wrapper {
+  padding: 2rem;
+  border: 1px solid black;
+  border-radius: 2rem;
+  margin: 1rem 0;
 }
 
 li {

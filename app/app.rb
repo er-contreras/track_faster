@@ -27,18 +27,19 @@ class App
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Task App</title>
+          <title>Step by Step App</title>
           <link rel="stylesheet" href="/styles.css">
           <script src="/app.js"></script>
         </head>
         <body>
-          <h1>Execute projects step by step</h1>
+          <h1>Step by Step App</h1>
 
           <form method="POST" action="/tasks">
             <input type="text" name="title" required>
-            <button>Add task</button>
+            <button>Add step</button>
           </form>
 
+          <h2>Steps Added</h2>
           <ul>
             #{render_items}
           </ul>
@@ -55,12 +56,12 @@ class App
   
     @tasks.add(title)
 
-    [200, { "content-type" => "text/html" }, ["<li>#{Rack::Utils.escape_html(title)}</li>"]]
+    [200, { "content-type" => "text/html" }, ["<div class='li-wrapper'><li>#{Rack::Utils.escape_html(title)}</li></div>"]]
   end
 
   def render_items
     @tasks.all.map do |title|
-      "<li>#{Rack::Utils.escape_html(title)}</li>"
+      "<div class='li-wrapper'><li>#{Rack::Utils.escape_html(title)}</li></div>"
     end.join
   end
 
