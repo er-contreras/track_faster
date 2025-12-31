@@ -39,7 +39,7 @@ class App
             <button>Add step</button>
           </form>
 
-          <h2>Steps Added</h2>
+          <h2>STEPS ADDED</h2>
           <ul>
             #{render_items}
           </ul>
