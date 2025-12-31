@@ -30,7 +30,8 @@ sudo docker compose up -d
 8. Pg
 9. render.com for deployment
 
-## Example of dicve into the database
+## Example of dive in the database
+```bash
  ··> sudo docker compose run --rm web sh -c 'psql $DATABASE_URL'
 [+]  1/1t 1/1
  ✔ Container track_faster-db-1 Running                                                                                                                                           0.0s
@@ -67,3 +68,4 @@ track_faster_development=# select * from tasks;
 (12 rows)
 
 track_faster_development=#
+```
