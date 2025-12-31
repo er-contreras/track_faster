@@ -89,10 +89,6 @@ class App
     [200, { "content-type" => "text/html" }, [body]]
   end
 
-  def redirect_to(path)
-    [302, { "location" => path }, []]
-  end
-
   def not_found
     [404, { "content-type" => "text/plain" }, ["Not Found"]]
   end
