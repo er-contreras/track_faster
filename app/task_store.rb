@@ -29,5 +29,3 @@ class TaskStore
     SQL
   end
 end
-
-

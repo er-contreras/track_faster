@@ -10,7 +10,9 @@ WORKDIR /track_faster
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-# App code will be bind-mounted
+# Copy the application code into the image
+COPY . .
+
 EXPOSE 9292
 
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0"]

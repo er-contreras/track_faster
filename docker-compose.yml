@@ -11,12 +11,19 @@ services:
       - 5432:5432
 
   web:
-    entrypoint: /entrypoint.sh
     build:
       context: ./
       dockerfile: Dockerfile.dev
-    volumes:
-      - .:/track_faster
+    develop:
+      watch:
+        - action: sync
+          path: ./public
+          target: /track_faster/public
+        - action: sync+restart
+          path: ./app
+          target: /track_faster/app
+        - action: rebuild
+          path: Gemfile
     ports:
       - "9292:9292"
     depends_on:
